@@ -43,7 +43,7 @@ public class ShimGmsFontProvider extends BaseIContentProvider {
 
     @Override
     public Cursor query(@NonNull AttributionSource attributionSource, Uri url, @Nullable String[] projection, @Nullable Bundle queryArgs, @Nullable ICancellationSignal cancellationSignal) throws RemoteException {
-        Log.d(TAG, "query: " + url.toString() + " projection: " + Arrays.toString(projection) + " args: " + (queryArgs != null ? queryArgs.toStringDeep() : ""));
+        Log.d(TAG, "query: " + url.toString() + " projection: " + Arrays.toString(projection) + " args: " + (queryArgs != null ? queryArgs.toString() : ""));
         var cursor = new MatrixCursor(new String[] { "file_id" });
         cursor.addRow(new Object[] { FONT_FILE_ID });
         return cursor;
@@ -51,7 +51,7 @@ public class ShimGmsFontProvider extends BaseIContentProvider {
 
     @Override
     public AssetFileDescriptor openTypedAssetFile(@NonNull AttributionSource attributionSource, Uri url, String mimeType, Bundle opts, ICancellationSignal signal) throws RemoteException, FileNotFoundException {
-        Log.d(TAG, "openTypedAssetFile: " + url + " " + url.getPath() + " mimeType: " + mimeType + " opts: " + (opts != null ? opts.toStringDeep() : ""));
+        Log.d(TAG, "openTypedAssetFile: " + url + " " + url.getPath() + " mimeType: " + mimeType + " opts: " + (opts != null ? opts.toString() : ""));
         if (!("/file/" + FONT_FILE_ID).equals(url.getPath())) {
             throw new FileNotFoundException();
         }
