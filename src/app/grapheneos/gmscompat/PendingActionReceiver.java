@@ -53,23 +53,23 @@ public class PendingActionReceiver extends BroadcastReceiver {
         switch (intent.getAction()) {
             case ACTION_SET_PREF_BOOLEAN_AND_CANCEL_NOTIF -> {
                 String key = extras.getString(EXTRA_BOOL_PREF_KEY);
-                boolean value = extras.getBoolean2(EXTRA_BOOL_PREF_VALUE);
+                boolean value = extras.getBoolean(EXTRA_BOOL_PREF_VALUE);
                 SharedPreferences.Editor ed = App.preferences().edit();
                 ed.putBoolean(key, value);
                 ed.apply();
-                int notifId = extras.getNumber(EXTRA_NOTIF_ID);
+                int notifId = extras.getInt(EXTRA_NOTIF_ID);
                 Notifications.cancel(notifId);
             }
             case ACTION_WRITE_GOS_PACKAGE_STATE_AND_CANCEL_NOTIF -> {
                 String pkgName = extras.getString(Intent.EXTRA_PACKAGE_NAME);
-                @GosPackageStateFlag.Enum int gosPsFlag = extras.getNumber(EXTRA_GOS_PACKAGE_STATE_FLAG);
-                boolean gosPsFlagValue = extras.getBoolean2(EXTRA_GOS_PACKAGE_STATE_FLAG_VALUE);
+                @GosPackageStateFlag.Enum int gosPsFlag = extras.getInt(EXTRA_GOS_PACKAGE_STATE_FLAG);
+                boolean gosPsFlagValue = extras.getBoolean(EXTRA_GOS_PACKAGE_STATE_FLAG_VALUE);
 
-                GosPackageState.Editor ed = GosPackageState.edit(pkgName, context.getUser());
+                GosPackageState.Editor ed = GosPackageState.edit(pkgName, android.os.Process.myUserHandle());
                 ed.setFlagState(gosPsFlag, gosPsFlagValue);
                 ed.apply();
 
-                int notifId = extras.getNumber(EXTRA_NOTIF_ID);
+                int notifId = extras.getInt(EXTRA_NOTIF_ID);
                 Notifications.cancel(notifId);
             }
         }
