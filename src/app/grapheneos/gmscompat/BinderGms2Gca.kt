@@ -7,7 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.IContentObserver
-import android.ext.LogViewerApp
+// LogViewerApp stub removed (GrapheneOS-specific)
 import android.ext.PackageId
 import android.net.Uri
 import android.os.Binder
@@ -462,9 +462,9 @@ object BinderGms2Gca : IGms2Gca.Stub() {
         intent.putExtra(Intent.EXTRA_BUG_REPORT, aer)
         val configVersion = ctx.packageManager.getPackageInfo(ConfigUpdateReceiver.CONFIG_HOLDER_PACKAGE,
                 PackageManager.PackageInfoFlags.of(0L)).longVersionCode
-        intent.putExtra(LogViewerApp.EXTRA_SHOW_REPORT_BUTTON, true)
+        intent.putExtra("extra_show_report_button", true)
         intent.putExtra(Intent.EXTRA_TEXT, "GmsCompatConfig version: $configVersion")
-        intent.setPackage(LogViewerApp.getPackageName());
+        intent.setPackage("com.android.settings");
 
         val reportAction = run {
             val url = "https://github.com/GrapheneOS/os-issue-tracker/issues"
